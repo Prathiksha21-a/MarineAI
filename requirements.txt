@@ -1,0 +1,10 @@
+Flask
+flask-cors
+ultralytics
+opencv-python
+Pillow
+numpy
+torch
+torchvision
+grad-cam
+pygetwindow
