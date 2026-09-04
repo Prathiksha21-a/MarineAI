@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>MarineAI</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='style.css') }}"
+    />
+  </head>
+  <body>
+    {% include '_nav.html' %}
+    <main class="hero">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7">
+            <span class="eyebrow">AI-POWERED MARINE INTELLIGENCE</span>
+            <h1 class="mt-3">MarineAI</h1>
+            <p class="lead fs-5">
+              An Intelligent Deep Learning Framework for Automated Fish
+              Detection and Fish Abundance Assessment to Support Sustainable
+              Fisheries.
+            </p>
+            <div class="hero-actions mt-4">
+              <a class="btn btn-primary" href="/detection">Start Detection</a
+              ><a class="btn btn-outline-primary" href="#features"
+                >Learn More</a
+              >
+            </div>
+          </div>
+          <div class="col-lg-5 text-center">
+            <div class="hero-art-wrap">
+              <div class="hero-stat one">
+                <strong>YOLOv11</strong>Vision intelligence
+              </div>
+              <div class="hero-stat two">
+                <strong>Fast analysis</strong>Clear results
+              </div>
+              <img
+                class="hero-art"
+                src="{{ url_for('static',filename='images/fish.png') }}"
+                alt="Fish illustration"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <section id="features" class="page">
+      <div class="container">
+        <p
+          class="section-copy text-uppercase fw-semibold mb-2"
+          style="letter-spacing: 0.08em; color: #26a69a"
+        >
+          Marine monitoring, simplified
+        </p>
+        <h2 class="section-title">Built for clear, fast analysis</h2>
+        <div class="row g-4 mt-3">
+          <div class="col-md-6 col-lg-3">
+            <article class="feature-card">
+              <div class="feature-icon">Fish</div>
+              <h5>Fish Detection</h5>
+              <p class="text-secondary mb-0">
+                Locate fish in underwater imagery with YOLOv11.
+              </p>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <article class="feature-card">
+              <div class="feature-icon">Data</div>
+              <h5>Fish Abundance Classification</h5>
+              <p class="text-secondary mb-0">
+                Classify observations as high, medium, or low abundance.
+              </p>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <article class="feature-card">
+              <div class="feature-icon">AI</div>
+              <h5>Large Fish Detection</h5>
+              <p class="text-secondary mb-0">
+                Identify large fish and report the detected species.
+              </p>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <article class="feature-card">
+              <div class="feature-icon">Fast</div>
+              <h5>Fast AI Analysis</h5>
+              <p class="text-secondary mb-0">
+                Get practical results from a simple image upload.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">Copyright 2026 MarineAI</footer>
+    <script src="{{ url_for('static',filename='script.js') }}"></script>
+  </body>
+</html>

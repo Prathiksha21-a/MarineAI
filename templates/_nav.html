@@ -1,0 +1,32 @@
+<header class="topbar">
+  <button class="menu-toggle" aria-label="Open menu">☰</button
+  ><a class="brand" href="/">MarineAI</a>
+</header>
+<aside class="sidebar">
+  <div class="sidebar-head">
+    <span>MarineAI</span
+    ><button class="close-menu" aria-label="Close menu">×</button>
+  </div>
+  <a class="side-link {% if active == 'home' %}active{% endif %}" href="/"
+    >Home</a
+  ><a
+    class="side-link {% if active == 'detection' %}active{% endif %}"
+    href="/detection"
+    >Image Detection</a
+  ><a
+    class="side-link {% if active == 'live' %}active{% endif %}"
+    href="/live_detection"
+    >Live Detection</a
+  ><a class="side-link {% if active == 'xai' %}active{% endif %}" href="/xai"
+    >Explainable AI</a
+  ><a
+    class="side-link {% if active == 'history' %}active{% endif %}"
+    href="/history"
+    >History</a
+  ><a
+    class="side-link {% if active == 'about' %}active{% endif %}"
+    href="/about"
+    >About</a
+  >
+</aside>
+<div class="menu-backdrop"></div>

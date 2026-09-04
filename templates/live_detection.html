@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live Detection | MarineAI</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  {% include '_nav.html' %}
+  <main class="page">
+    <div class="container">
+      <div class="page-heading">
+        <h1>Live Detection</h1>
+        <p>Analyze the live Android phone camera stream from scrcpy.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <h6>Live Camera</h6>
+          <div class="image-panel">
+            <img id="phoneStream" src="/phone_stream" alt="Android phone camera stream">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h6>Detection Result</h6>
+          <div class="image-panel">
+            <img id="result" hidden alt="Live detection result">
+            <span id="resultText">Press Start Detection to analyze the phone stream.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center my-4">
+        <button id="start" class="btn btn-primary">Start Detection</button>
+        <button id="stop" class="btn btn-outline-primary ms-2" disabled>Stop Detection</button>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-4"><div class="result-card"><h6>Fish Present</h6><h3 id="fish">-</h3></div></div>
+        <div class="col-md-4"><div class="result-card"><h6>Fish Abundance</h6><h3 id="abundance">-</h3></div></div>
+        <div class="col-md-4"><div class="result-card"><h6>Large Fish / Species</h6><h3 id="large">-</h3></div></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script>
+    const start = document.querySelector('#start');
+    const stop = document.querySelector('#stop');
+    const result = document.querySelector('#result');
+    const resultText = document.querySelector('#resultText');
+    const fishValue = document.querySelector('#fish');
+    const abundanceValue = document.querySelector('#abundance');
+    const largeValue = document.querySelector('#large');
+    let timer = null;
+    let requestInProgress = false;
+
+    async function detectPhone() {
+      if (requestInProgress) return;
+      requestInProgress = true;
+      try {
+        const response = await fetch('/phone_detect', { method: 'POST' });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Phone detection failed');
+
+        result.src = `/${data.output_image}?t=${Date.now()}`;
+        result.hidden = false;
+        resultText.hidden = true;
+        fishValue.textContent = data.fish_present;
+        abundanceValue.textContent = data.fish_abundance;
+        largeValue.textContent = data.large_fish === 'Yes' ? `Yes / ${data.species}` : 'No';
+      } catch (error) {
+        resultText.textContent = error.message;
+        resultText.hidden = false;
+      } finally {
+        requestInProgress = false;
+      }
+    }
+
+    start.addEventListener('click', () => {
+      detectPhone();
+      timer = window.setInterval(detectPhone, 750);
+      start.disabled = true;
+      stop.disabled = false;
+    });
+
+    stop.addEventListener('click', () => {
+      window.clearInterval(timer);
+      timer = null;
+      start.disabled = false;
+      stop.disabled = true;
+    });
+  </script>
+</body>
+</html>
